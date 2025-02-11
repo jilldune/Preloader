@@ -67,7 +67,6 @@ public class Preloader {
      */
     private void initStyles() {
         // Add your default library styles here
-        System.out.println(getClass().getResource("/styles/preloader.css"));
         defaultLibraryStyles.add(Objects.requireNonNull(getClass().getResource("/styles/preloader.css")).toExternalForm());
         replaceStylesheets(); // Apply the default styles initially
     }
