@@ -17,7 +17,7 @@ public class Index extends Application {
         // create  the root
         AnchorPane root = new AnchorPane();
         root.setPrefSize(800,600);
-        root.setStyle("-fx-background-color: #3b3b3b;");
+        root.setStyle("-fx-background-color: #333;");
 
         Button button = getButton(stage);
 
@@ -37,6 +37,7 @@ public class Index extends Application {
         button.setCursor(Cursor.HAND);
 
         Preloader preloader = new Preloader(stage);
+        preloader.backgroundTransparency(10);
         stage.setOnCloseRequest(ev -> {
             preloader.destroy();
         });

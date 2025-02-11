@@ -33,6 +33,7 @@ public class Preloader {
     private TextNode textNodeCallback;
     private final List<String> customStyleSheets = new ArrayList<>(); // User-added custom stylesheets
     private final List<String> defaultLibraryStyles = new ArrayList<>(); // Default library styles
+    private int rootTransparencyLevel = 1;
 
     public Preloader(Stage stage) {
         this.stage = stage;
@@ -82,6 +83,18 @@ public class Preloader {
             this.customStyleSheets.add(styleSheetURL); // Maintain a list of user-added stylesheets
             replaceStylesheets();
         }
+    }
+
+    private void setRootTransparencyLevel(int level) {
+        parentNode.getStyleClass().clear();
+        parentNode.getStyleClass().add("root");
+
+        if (level != 0)
+            parentNode.getStyleClass().add("level" + level);
+    }
+
+    public void backgroundTransparency(int level) {
+        this.rootTransparencyLevel = level;
     }
 
     /**
@@ -253,6 +266,8 @@ public class Preloader {
 
     public void show() {
         create();
+        // set background transparency
+        this.setRootTransparencyLevel(this.rootTransparencyLevel);
         this.parentNode.setVisible(true);
     }
 
