@@ -15,7 +15,10 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class Preloader {
     private final Stage stage;
@@ -28,6 +31,8 @@ public class Preloader {
     private LoaderCallback customComponentFunction;
     private LoaderNode loaderNodeCallback;
     private TextNode textNodeCallback;
+    private final List<String> customStyleSheets = new ArrayList<>(); // User-added custom stylesheets
+    private final List<String> defaultLibraryStyles = new ArrayList<>(); // Default library styles
 
     public Preloader(Stage stage) {
         this.stage = stage;
@@ -35,10 +40,14 @@ public class Preloader {
     }
 
     private void init() {
+        // Parent container
+        parentNode = new AnchorPane();
+
         Platform.runLater(()->{
-            // Parent container
-            parentNode = new AnchorPane();
+            initStyles();
             parentNode.setId("preloader_edubiz_com_id");
+            parentNode.getStyleClass().add("root");
+            parentNode.setManaged(false);
 
             // Main window
             Scene scene = stage.getScene();
@@ -46,7 +55,44 @@ public class Preloader {
 
             // adding container to main window
             ((Pane) rootPane).getChildren().add(parentNode);
+
+            // bind to scene
+            parentNode.prefWidthProperty().bind(scene.widthProperty());
+            parentNode.prefHeightProperty().bind(scene.heightProperty());
         });
+    }
+
+    /**
+     * Initializes the default library stylesheets.
+     */
+    private void initStyles() {
+        // Add your default library styles here
+        System.out.println(getClass().getResource("/styles/preloader.css"));
+        defaultLibraryStyles.add(Objects.requireNonNull(getClass().getResource("/styles/preloader.css")).toExternalForm());
+        replaceStylesheets(); // Apply the default styles initially
+    }
+
+    /// Ensures that library styles remain in place and custom styles are applied last.
+    /**
+     * Adds a custom stylesheet provided by the user.
+     *
+     * @param styleSheetURL the URL of the custom stylesheet to add.
+     */
+    public void addStyleSheet(String styleSheetURL) {
+        if (styleSheetURL != null && !styleSheetURL.trim().isEmpty()) {
+            this.customStyleSheets.add(styleSheetURL); // Maintain a list of user-added stylesheets
+            replaceStylesheets();
+        }
+    }
+
+    /**
+     * Clears and re-applies all stylesheets to the root pane.
+     * Ensures library styles are applied first, followed by custom styles.
+     */
+    private void replaceStylesheets() {
+        parentNode.getStylesheets().clear();
+        parentNode.getStylesheets().addAll(defaultLibraryStyles);
+        parentNode.getStylesheets().addAll(customStyleSheets);
     }
 
     private VBox container() {

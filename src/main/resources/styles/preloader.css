@@ -1,0 +1,50 @@
+@font-face {
+    font-family: "Poppins",
+    src: url("fonts/Poppins/Poppins-Regular.ttf");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: "RobotoCondensed",
+    src: url("fonts/Roboto_Condensed/static/RobotoCondensed-Regular.ttf");
+    font-weight: normal;
+    font-style: normal;
+}
+* {
+    -fx-font-family: "Roboto Condensed";
+    -fx-font-size: 12px;
+}
+/** default icon styling */
+.root {
+    -fx-background-color: rgba(0,0,0,0);
+}
+.root.level1 {
+    -fx-background-color: rgba(0,0,0,0.1);
+}
+.root.level2 {
+    -fx-background-color: rgba(0,0,0,0.2);
+}
+.root.level3 {
+    -fx-background-color: rgba(0,0,0,0.3);
+}
+.root.level4 {
+    -fx-background-color: rgba(0,0,0,0.4);
+}
+.root.level5 {
+    -fx-background-color: rgba(0,0,0,0.5);
+}
+.root.level6 {
+    -fx-background-color: rgba(0,0,0,0.6);
+}
+.root.level7 {
+    -fx-background-color: rgba(0,0,0,0.7);
+}
+.root.level8 {
+    -fx-background-color: rgba(0,0,0,0.8);
+}
+.root.level9 {
+    -fx-background-color: rgba(0,0,0,0.9);
+}
+.root.level10 {
+    -fx-background-color: rgba(0,0,0,1.0);
+}
