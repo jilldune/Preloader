@@ -37,17 +37,10 @@ public class Index extends Application {
         button.setCursor(Cursor.HAND);
 
         Preloader preloader = new Preloader(stage);
-        preloader.backgroundTransparency(10);
-        stage.setOnCloseRequest(ev -> {
-            preloader.destroy();
-        });
-        preloader.setCustomTextNode(()->{
-            return new Label("I am something different");
-        }).setCustomComponent(()->{
-            return new HBox(new Label("Hello"),new Button("new button"));
-        }).setCustomLoaderNode(()->{
-            return new Circle(50, Paint.valueOf("red"));
-        });
+        preloader.backgroundTransparency(5);
+        stage.setOnCloseRequest(ev -> preloader.destroy());
+        preloader.setCustomTextNode(()-> new Label("I am something different"))
+            .setCustomLoaderNode(()-> new Circle(50, Paint.valueOf("red")));
         button.setOnAction(e -> {
             preloader.show();
 
